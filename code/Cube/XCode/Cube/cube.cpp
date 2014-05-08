@@ -109,12 +109,12 @@ void idle() {
     
     // Imagine you don't have a GPU and you want to computine lighting
     // Probably you can do it more efficiently than this but it will give and idea
-    // Pretend that we do some meaningful floating points computations for 800*800 pixels
+    // Pretend that we do some meaningful floating points computations for 600*600 pixels
     // Uncomment this code and observe the resulting FPS
     /*
     float dummy = 0.0;
-    for (int i = 0; i < 800; i++) {
-        for (int j = 0; j < 800; j++) {
+    for (int i = 0; i < 600; i++) {
+        for (int j = 0; j < 600; j++) {
             
             // 3 floating point mulitplications of vectors of length 3
             // two dot products of vectors of length 3

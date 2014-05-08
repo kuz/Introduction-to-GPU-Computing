@@ -16,5 +16,4 @@ void main(void) {
     //     light_specular * material_specular * cos(reflection, viewer)^shineniness
     
     // ... TODO ... //
-    
 }

@@ -19,18 +19,28 @@ using glutil::MatrixStack; // We shall be using a custom matrix stack implementa
 // --------------- Forward declarations ------------- //
 int main(int argc, char* argv[]);
 void display();
+void idle();
 void prepare_vertex_data();
 void draw_cube(float t);
+void calculate_fps();
 
-shader_prog shader("../src/triangle.vert.glsl", "../src/triangle.frag.glsl");
+// --------------------- Shader --------------------- //
+shader_prog shader("../src/cube.vert.glsl", "../src/cube.frag.glsl");
+
+// -------------------- Variables ------------------- //
 GLuint cubeVertexArrayHandle;
-GLuint cubeArrayBufferHandle;;
+GLuint cubeArrayBufferHandle;
+int frameCount = 0;
+float fps = 0;
+int currentTime = 0;
+int previousTime = 0;
 
-// ----------------------------------------------- //
+
 /**
  * Program entry point
  */
 int main(int argc, char* argv[]) {
+
     // Initialize GLUT and GLEW
     glutInit(&argc, argv);
 
@@ -40,8 +50,8 @@ int main(int argc, char* argv[]) {
     glutInitContextProfile(GLUT_CORE_PROFILE);
 
     glutInitDisplayMode(GLUT_DOUBLE | GLUT_RGB);
-    glutInitWindowSize(400, 400);
-    glutCreateWindow("Triangle");
+    glutInitWindowSize(800, 800);
+    glutCreateWindow("Cube");
 
     // Initialize GLEW.
     glewExperimental = true; // This is a hack. Without it the current GLEW version fails to load
@@ -53,7 +63,7 @@ int main(int argc, char* argv[]) {
 
     // Register handlers
     glutDisplayFunc(display);
-    glutIdleFunc((void (*)())glutPostRedisplay);
+    glutIdleFunc(idle);
 
     // Configuration
     glClearColor(0, 0, 0, 0);
@@ -79,7 +89,43 @@ int main(int argc, char* argv[]) {
     return 0;
 }
 
-// ----------------------------------------------- //
+
+/**
+ * GLUT program can perform background processing tasks or continuous animation when
+ * window system events are not being received. If enabled, the idle callback is
+ * continuously called when events are not being received.
+ */
+void idle() {
+
+    //  Calculate FPS
+    calculate_fps();
+
+    // Imagine you don't have a GPU and you want to computine lighting
+    // Probably you can do it more efficiently than this but it will give and idea
+    // Pretend that we do some meaningful floating points computations for 600*600 pixels
+    // Uncomment this code and observe the resulting FPS
+    /*
+    float dummy = 0.0;
+    for (int i = 0; i < 600; i++) {
+        for (int j = 0; j < 600; j++) {
+
+            // 3 floating point mulitplications of vectors of length 3
+            // two dot products of vectors of length 3
+            for (int t = 0; t < 15; t++) {
+                dummy = 0.7 * 0.7;
+            }
+
+            // raising to power
+            dummy = pow(dummy, 20);
+        }
+    }
+    */
+
+    //  Call display function (draw the current frame)
+    glutPostRedisplay();
+}
+
+
 // In this function we:
 //  * Initialize the vertex array object
 //  * Create an array buffer with data
@@ -102,7 +148,7 @@ void prepare_vertex_data() {
     glGenBuffers(1, &cubeArrayBufferHandle);
 
     // Now let us fill the buffer with data
-    // As usual (recall textures), OpenGL wants you to first to "attach" the buffer object
+    // OpenGL wants you to first to "attach" the buffer object
     // you just created into the current context under the GL_ARRAY_BUFFER label.
     // (this makes it the "current buffer"). Whatever you will then make with this
     // current buffer
@@ -110,52 +156,52 @@ void prepare_vertex_data() {
     const float cubeVertexData[] = {
 
         // left
-        0, 0, 0,   1, 0, 0,   -1, 0, 0,
-        0, 1, 0,   1, 0, 0,   -1, 0, 0,
-        0, 1, 1,   1, 0, 0,   -1, 0, 0,
-        0, 1, 1,   1, 0, 0,   -1, 0, 0,
-        0, 0, 1,   1, 0, 0,   -1, 0, 0,
-        0, 0, 0,   1, 0, 0,   -1, 0, 0,
+        0, 0, 0,   -1, 0, 0,
+        0, 1, 0,   -1, 0, 0,
+        0, 1, 1,   -1, 0, 0,
+        0, 1, 1,   -1, 0, 0,
+        0, 0, 1,   -1, 0, 0,
+        0, 0, 0,   -1, 0, 0,
 
         // right
-        1, 0, 0,   0, 1, 0,   1, 0, 0,
-        1, 0, 1,   0, 1, 0,   1, 0, 0,
-        1, 1, 1,   0, 1, 0,   1, 0, 0,
-        1, 1, 1,   0, 1, 0,   1, 0, 0,
-        1, 1, 0,   0, 1, 0,   1, 0, 0,
-        1, 0, 0,   0, 1, 0,   1, 0, 0,
+        1, 0, 0,   1, 0, 0,
+        1, 0, 1,   1, 0, 0,
+        1, 1, 1,   1, 0, 0,
+        1, 1, 1,   1, 0, 0,
+        1, 1, 0,   1, 0, 0,
+        1, 0, 0,   1, 0, 0,
 
         // top
-        0, 1, 0,   0, 0, 1,   0, 1, 0,
-        0, 1, 1,   0, 0, 1,   0, 1, 0,
-        1, 1, 1,   0, 0, 1,   0, 1, 0,
-        1, 1, 1,   0, 0, 1,   0, 1, 0,
-        1, 1, 0,   0, 0, 1,   0, 1, 0,
-        0, 1, 0,   0, 0, 1,   0, 1, 0,
+        0, 1, 0,   0, 1, 0,
+        0, 1, 1,   0, 1, 0,
+        1, 1, 1,   0, 1, 0,
+        1, 1, 1,   0, 1, 0,
+        1, 1, 0,   0, 1, 0,
+        0, 1, 0,   0, 1, 0,
 
         // bottom
-        0, 0, 0,   1, 1, 0,   0, -1, 0,
-        0, 0, 1,   1, 1, 0,   0, -1, 0,
-        1, 0, 1,   1, 1, 0,   0, -1, 0,
-        1, 0, 1,   1, 1, 0,   0, -1, 0,
-        1, 0, 0,   1, 1, 0,   0, -1, 0,
-        0, 0, 0,   1, 1, 0,   0, -1, 0,
+        0, 0, 0,   0, -1, 0,
+        0, 0, 1,   0, -1, 0,
+        1, 0, 1,   0, -1, 0,
+        1, 0, 1,   0, -1, 0,
+        1, 0, 0,   0, -1, 0,
+        0, 0, 0,   0, -1, 0,
 
         // front
-        0, 0, 0,   0, 1, 1,   0, 0, 1,
-        0, 1, 0,   0, 1, 1,   0, 0, 1,
-        1, 1, 0,   0, 1, 1,   0, 0, 1,
-        1, 1, 0,   0, 1, 1,   0, 0, 1,
-        1, 0, 0,   0, 1, 1,   0, 0, 1,
-        0, 0, 0,   0, 1, 1,   0, 0, 1,
+        0, 0, 1,   0, 0, 1,
+        0, 1, 1,   0, 0, 1,
+        1, 1, 1,   0, 0, 1,
+        1, 1, 1,   0, 0, 1,
+        1, 0, 1,   0, 0, 1,
+        0, 0, 1,   0, 0, 1,
 
         // back
-        0, 0, 1,   1, 0, 1,   0, 0, -1,
-        0, 1, 1,   1, 0, 1,   0, 0, -1,
-        1, 1, 1,   1, 0, 1,   0, 0, -1,
-        1, 1, 1,   1, 0, 1,   0, 0, -1,
-        1, 0, 1,   1, 0, 1,   0, 0, -1,
-        0, 0, 1,   1, 0, 1,   0, 0, -1,
+        0, 0, 0,   0, 0, -1,
+        0, 1, 0,   0, 0, -1,
+        1, 1, 0,   0, 0, -1,
+        1, 1, 0,   0, 0, -1,
+        1, 0, 0,   0, 0, -1,
+        0, 0, 0,   0, 0, -1,
 
     };
 
@@ -182,50 +228,93 @@ void prepare_vertex_data() {
                                     // This is something we did not cover in the course, so google it up, e.g. http://jet.ro/files/The_neglected_art_of_Fixed_Point_arithmetic_20060913.pdf
                                     // We did not cover it because we largely do not use it anywhere.
                                     // To indicate that we do not use it, we say GL_FALSE here.
-                          9*sizeof(float), // 1.1 // Spacing between consequtive elements, in bytes.
+                          6*sizeof(float), // 1.1 // Spacing between consequtive elements, in bytes.
                           (const GLvoid*)(0*sizeof(float)) // Offset to where the first element starts, in bytes.
                           );
 
-    // Color
+    // Normal
     glEnableVertexAttribArray(1);
     glVertexAttribPointer(1,
                           3,
                           GL_FLOAT,
                           GL_FALSE,
-                          9*sizeof(float), // Spacing between consequtive elements, in bytes.
+                          6*sizeof(float), // Spacing between consequtive elements, in bytes.
                           (const GLvoid*)(3*sizeof(float)) // Offset to where the first element starts, in bytes.
-                          );
-
-    // Normal
-    glEnableVertexAttribArray(2);
-    glVertexAttribPointer(2,
-                          3,
-                          GL_FLOAT,
-                          GL_FALSE,
-                          9*sizeof(float), // Spacing between consequtive elements, in bytes.
-                          (const GLvoid*)(6*sizeof(float)) // Offset to where the first element starts, in bytes.
                           );
 
 }
 
+
+/**
+ * When GLUT determines that the window needs to be redisplayed, the display callback for the window is called.
+ */
 void display() {
     float t = glutGet(GLUT_ELAPSED_TIME);
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);     // Clear screen
     draw_cube(t);
 }
 
+
+/**
+ * Routine to draw the cube
+ */
 void draw_cube(float t) {
+
+    // We bind VAO and buffer again here in case we have bound something else in between
     glBindVertexArray(cubeVertexArrayHandle);
     glBindBuffer(GL_ARRAY_BUFFER, cubeArrayBufferHandle);
 
-    MatrixStack m;
-    m.Perspective(60, 1, 0.5, 100);
-    m.LookAt(glm::vec3(0, 0, 2), glm::vec3(0, 0, 0), glm::vec3(0, 1, 0));
-    m.Rotate(glm::vec3(0, 1, 1), t*0.1);
-    m.Translate(glm::vec3(-0.5, -0.5, -0.5));
-    shader.uniformMatrix4fv("modelViewProjectionMatrix", glm::value_ptr(m.Top()));
+    // Model View Projection matrix
+    MatrixStack mvp;
+
+    // Model View matrix (needed to compute normals)
+    MatrixStack mv;
+
+    mvp.Perspective(60, 1, 0.5, 100);
+    mvp.LookAt(glm::vec3(0, 0, 3), glm::vec3(0, 0, 0), glm::vec3(0, 1, 0));
+    mvp.Rotate(glm::vec3(0, 1, 1), t*0.1);
+    mvp.Translate(glm::vec3(-0.5, -0.5, -0.5));
+
+    mv.LookAt(glm::vec3(0, 0, 3), glm::vec3(0, 0, 0), glm::vec3(0, 1, 0));
+    mv.Rotate(glm::vec3(0, 1, 1), t*0.1);
+    mv.Translate(glm::vec3(-0.5, -0.5, -0.5));
+
+    shader.uniformMatrix4fv("modelViewProjectionMatrix", glm::value_ptr(mvp.Top()));
+    shader.uniformMatrix4fv("modelViewMatrix", glm::value_ptr(mv.Top()));
 
     glDrawArrays(GL_TRIANGLES, 0, 36);
 
     glutSwapBuffers();
+}
+
+
+/**
+ * Calculates the frames per second
+ */
+void calculate_fps() {
+
+    //  Increase frame count
+    frameCount++;
+
+    //  Get the number of milliseconds since glutInit called
+    //  (or first call to glutGet(GLUT ELAPSED TIME)).
+    currentTime = glutGet(GLUT_ELAPSED_TIME);
+
+    //  Calculate time passed
+    int timeInterval = currentTime - previousTime;
+
+    if (timeInterval > 1000)
+    {
+        //  calculate the number of frames per second
+        fps = frameCount / (timeInterval / 1000.0f);
+
+        //  Set time
+        previousTime = currentTime;
+
+        //  Reset frame count
+        frameCount = 0;
+
+        // Print out FPS to console
+        printf("FPS: %4.2f\n", fps);
+    }
 }
