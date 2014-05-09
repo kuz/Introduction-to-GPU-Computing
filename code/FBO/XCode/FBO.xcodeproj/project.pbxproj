@@ -1,0 +1,293 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		EC77CF0A18302D330087C329 /* OpenGL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EC77CF0918302D330087C329 /* OpenGL.framework */; };
+		EC77CF0D18302E1C0087C329 /* libGLEW.1.10.0.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = EC77CF0B18302E1C0087C329 /* libGLEW.1.10.0.dylib */; };
+		EC77CF0E18302E1C0087C329 /* libglut.3.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = EC77CF0C18302E1C0087C329 /* libglut.3.dylib */; };
+		EC77CF1018302E3D0087C329 /* libglfw.3.0.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = EC77CF0F18302E3D0087C329 /* libglfw.3.0.dylib */; };
+		EC77CF2618302FE30087C329 /* GLUT.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EC77CF2518302FE30087C329 /* GLUT.framework */; };
+		ECA17E5E191D5D0C00E14916 /* fbo.cpp in Sources */ = {isa = PBXBuildFile; fileRef = ECA17E57191D5D0B00E14916 /* fbo.cpp */; };
+		ECA17E60191D5D0C00E14916 /* shader_util.cpp in Sources */ = {isa = PBXBuildFile; fileRef = ECA17E5C191D5D0C00E14916 /* shader_util.cpp */; };
+		ECA17E63191D5D3F00E14916 /* fbo.frag.glsl in CopyFiles */ = {isa = PBXBuildFile; fileRef = ECA17E58191D5D0C00E14916 /* fbo.frag.glsl */; };
+		ECA17E64191D5D4100E14916 /* fbo.vert.glsl in CopyFiles */ = {isa = PBXBuildFile; fileRef = ECA17E59191D5D0C00E14916 /* fbo.vert.glsl */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		EC77CEFB18302D220087C329 /* CopyFiles */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 12;
+			dstPath = ../shaders;
+			dstSubfolderSpec = 6;
+			files = (
+				ECA17E63191D5D3F00E14916 /* fbo.frag.glsl in CopyFiles */,
+				ECA17E64191D5D4100E14916 /* fbo.vert.glsl in CopyFiles */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
+/* Begin PBXFileReference section */
+		EC77CEFD18302D220087C329 /* FBO */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = FBO; sourceTree = BUILT_PRODUCTS_DIR; };
+		EC77CF0918302D330087C329 /* OpenGL.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGL.framework; path = System/Library/Frameworks/OpenGL.framework; sourceTree = SDKROOT; };
+		EC77CF0B18302E1C0087C329 /* libGLEW.1.10.0.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libGLEW.1.10.0.dylib; path = ../../../../../../../opt/local/lib/libGLEW.1.10.0.dylib; sourceTree = "<group>"; };
+		EC77CF0C18302E1C0087C329 /* libglut.3.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libglut.3.dylib; path = ../../../../../../../opt/local/lib/libglut.3.dylib; sourceTree = "<group>"; };
+		EC77CF0F18302E3D0087C329 /* libglfw.3.0.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libglfw.3.0.dylib; path = ../../../../../../../opt/local/lib/libglfw.3.0.dylib; sourceTree = "<group>"; };
+		EC77CF2518302FE30087C329 /* GLUT.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GLUT.framework; path = System/Library/Frameworks/GLUT.framework; sourceTree = SDKROOT; };
+		ECA17E57191D5D0B00E14916 /* fbo.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = fbo.cpp; path = FBO/fbo.cpp; sourceTree = "<group>"; };
+		ECA17E58191D5D0C00E14916 /* fbo.frag.glsl */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = fbo.frag.glsl; path = FBO/fbo.frag.glsl; sourceTree = "<group>"; };
+		ECA17E59191D5D0C00E14916 /* fbo.vert.glsl */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = fbo.vert.glsl; path = FBO/fbo.vert.glsl; sourceTree = "<group>"; };
+		ECA17E5C191D5D0C00E14916 /* shader_util.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = shader_util.cpp; path = FBO/shader_util.cpp; sourceTree = "<group>"; };
+		ECA17E5D191D5D0C00E14916 /* shader_util.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = shader_util.h; path = FBO/shader_util.h; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		EC77CEFA18302D220087C329 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				EC77CF2618302FE30087C329 /* GLUT.framework in Frameworks */,
+				EC77CF1018302E3D0087C329 /* libglfw.3.0.dylib in Frameworks */,
+				EC77CF0D18302E1C0087C329 /* libGLEW.1.10.0.dylib in Frameworks */,
+				EC77CF0E18302E1C0087C329 /* libglut.3.dylib in Frameworks */,
+				EC77CF0A18302D330087C329 /* OpenGL.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		EC77CEF418302D220087C329 = {
+			isa = PBXGroup;
+			children = (
+				EC77CF2518302FE30087C329 /* GLUT.framework */,
+				EC77CF0F18302E3D0087C329 /* libglfw.3.0.dylib */,
+				EC77CF0B18302E1C0087C329 /* libGLEW.1.10.0.dylib */,
+				EC77CF0C18302E1C0087C329 /* libglut.3.dylib */,
+				EC77CF0918302D330087C329 /* OpenGL.framework */,
+				EC77CEFE18302D220087C329 /* Products */,
+				ECA17E61191D5D1300E14916 /* FBO */,
+				ECA17E62191D5D1900E14916 /* shaders */,
+			);
+			sourceTree = "<group>";
+		};
+		EC77CEFE18302D220087C329 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				EC77CEFD18302D220087C329 /* FBO */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		ECA17E61191D5D1300E14916 /* FBO */ = {
+			isa = PBXGroup;
+			children = (
+				ECA17E5C191D5D0C00E14916 /* shader_util.cpp */,
+				ECA17E5D191D5D0C00E14916 /* shader_util.h */,
+				ECA17E57191D5D0B00E14916 /* fbo.cpp */,
+			);
+			name = FBO;
+			sourceTree = "<group>";
+		};
+		ECA17E62191D5D1900E14916 /* shaders */ = {
+			isa = PBXGroup;
+			children = (
+				ECA17E58191D5D0C00E14916 /* fbo.frag.glsl */,
+				ECA17E59191D5D0C00E14916 /* fbo.vert.glsl */,
+			);
+			name = shaders;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		EC77CEFC18302D220087C329 /* FBO */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = EC77CF0618302D220087C329 /* Build configuration list for PBXNativeTarget "FBO" */;
+			buildPhases = (
+				EC77CEF918302D220087C329 /* Sources */,
+				EC77CEFA18302D220087C329 /* Frameworks */,
+				EC77CEFB18302D220087C329 /* CopyFiles */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = FBO;
+			productName = NewTriangle;
+			productReference = EC77CEFD18302D220087C329 /* FBO */;
+			productType = "com.apple.product-type.tool";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		EC77CEF518302D220087C329 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 0500;
+				ORGANIZATIONNAME = "Ilya Kuzovkin";
+			};
+			buildConfigurationList = EC77CEF818302D220087C329 /* Build configuration list for PBXProject "FBO" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+			);
+			mainGroup = EC77CEF418302D220087C329;
+			productRefGroup = EC77CEFE18302D220087C329 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				EC77CEFC18302D220087C329 /* FBO */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXSourcesBuildPhase section */
+		EC77CEF918302D220087C329 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				ECA17E5E191D5D0C00E14916 /* fbo.cpp in Sources */,
+				ECA17E60191D5D0C00E14916 /* shader_util.cpp in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin XCBuildConfiguration section */
+		EC77CF0418302D220087C329 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_ENABLE_OBJC_EXCEPTIONS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 10.9;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = macosx;
+			};
+			name = Debug;
+		};
+		EC77CF0518302D220087C329 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = YES;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_ENABLE_OBJC_EXCEPTIONS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 10.9;
+				SDKROOT = macosx;
+			};
+			name = Release;
+		};
+		EC77CF0718302D220087C329 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				HEADER_SEARCH_PATHS = (
+					"$(inherited)",
+					/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include,
+					/opt/local/include,
+				);
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					/opt/local/lib,
+				);
+				MACOSX_DEPLOYMENT_TARGET = 10.9;
+				PRODUCT_NAME = FBO;
+				SDKROOT = macosx10.9;
+			};
+			name = Debug;
+		};
+		EC77CF0818302D220087C329 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				HEADER_SEARCH_PATHS = (
+					"$(inherited)",
+					/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include,
+					/opt/local/include,
+				);
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					/opt/local/lib,
+				);
+				MACOSX_DEPLOYMENT_TARGET = 10.9;
+				PRODUCT_NAME = FBO;
+				SDKROOT = macosx10.9;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		EC77CEF818302D220087C329 /* Build configuration list for PBXProject "FBO" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				EC77CF0418302D220087C329 /* Debug */,
+				EC77CF0518302D220087C329 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		EC77CF0618302D220087C329 /* Build configuration list for PBXNativeTarget "FBO" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				EC77CF0718302D220087C329 /* Debug */,
+				EC77CF0818302D220087C329 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = EC77CEF518302D220087C329 /* Project object */;
+}
