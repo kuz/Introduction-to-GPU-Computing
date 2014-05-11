@@ -53,7 +53,7 @@ int main(int argc, char** argv)
         data[i] = (float)(int)rand();
     }
     
-    // Track time needed for all GPU operations
+    
     clock_t start = clock();
     
     // Connect to a compute device
@@ -63,7 +63,7 @@ int main(int argc, char** argv)
     // Create a compute context
     context = clCreateContext(0, 1, &device_id, NULL, NULL, &err);
 
-    // Create a command commands
+    // Create a command queue
     commands = clCreateCommandQueue(context, device_id, 0, &err);
 
     // Create the compute program from the source buffer
@@ -73,7 +73,7 @@ int main(int argc, char** argv)
     err = clBuildProgram(program, 0, NULL, NULL, NULL, NULL);
 
     // Create the compute kernel in the program we wish to run
-    kernel = clCreateKernel(program, "square", &err);
+    kernel = clCreateKernel(program, "sqrt", &err);
 
     // Create the input and output arrays in device memory for our calculation
     input = clCreateBuffer(context,  CL_MEM_READ_ONLY,  sizeof(float) * data_size, NULL, NULL);
@@ -86,12 +86,13 @@ int main(int argc, char** argv)
     err = 0;
     err  = clSetKernelArg(kernel, 0, sizeof(cl_mem), &input);
     err |= clSetKernelArg(kernel, 1, sizeof(cl_mem), &output);
-    err |= clSetKernelArg(kernel, 2, sizeof(unsigned int), &data_size);
+    err |= clSetKernelArg(kernel, 2, sizeof(unsigned long), &data_size);
 
-    // Get the maximum work group size for executing the kernel on the device
+    // Get the maximum work group size for executing
+    // the kernel on the device
     err = clGetKernelWorkGroupInfo(kernel, device_id, CL_KERNEL_WORK_GROUP_SIZE, sizeof(local), &local, NULL);
 
-    // Execute the kernel over the entire range of our 1d input data set
+    // Execute the kernel over the entire range of our 1D input data set
     // using the maximum number of work group items for this device
     global = data_size;
     err = clEnqueueNDRangeKernel(commands, kernel, 1, NULL, &global, &local, 0, NULL, NULL);
@@ -99,7 +100,7 @@ int main(int argc, char** argv)
     // Wait for the command commands to get serviced before reading back results
     clFinish(commands);
 
-    // Read back the results from the device to verify the output
+    // Read back the results from the device
     err = clEnqueueReadBuffer( commands, output, CL_TRUE, 0, sizeof(float) * data_size, gpu_results, 0, NULL, NULL );
     
     clock_t end = clock();

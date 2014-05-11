@@ -16,8 +16,8 @@
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "466E0F5E0C932E1A00ED01DB"
                BuildableName = "hello"
-               BlueprintName = "hello"
-               ReferencedContainer = "container:hello.xcodeproj">
+               BlueprintName = "OpenCL"
+               ReferencedContainer = "container:OpenCL.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
       </BuildActionEntries>
@@ -34,8 +34,8 @@
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "466E0F5E0C932E1A00ED01DB"
             BuildableName = "hello"
-            BlueprintName = "hello"
-            ReferencedContainer = "container:hello.xcodeproj">
+            BlueprintName = "OpenCL"
+            ReferencedContainer = "container:OpenCL.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
    </TestAction>
@@ -53,8 +53,8 @@
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "466E0F5E0C932E1A00ED01DB"
             BuildableName = "hello"
-            BlueprintName = "hello"
-            ReferencedContainer = "container:hello.xcodeproj">
+            BlueprintName = "OpenCL"
+            ReferencedContainer = "container:OpenCL.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
       <AdditionalOptions>
@@ -71,8 +71,8 @@
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "466E0F5E0C932E1A00ED01DB"
             BuildableName = "hello"
-            BlueprintName = "hello"
-            ReferencedContainer = "container:hello.xcodeproj">
+            BlueprintName = "OpenCL"
+            ReferencedContainer = "container:OpenCL.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
    </ProfileAction>
