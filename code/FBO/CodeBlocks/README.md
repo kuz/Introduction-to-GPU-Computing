@@ -1,14 +1,12 @@
 This code is not ready yet
-==========================
+--------------------------
 
-Windows
--------
+### Windows
 
 For Windows use the binaries with MinGW compiler included http://www.codeblocks.org/downloads/26
 
 
-Linux
------
+### Linux
 
 Under linux you will need to install
 * FreeGLUT

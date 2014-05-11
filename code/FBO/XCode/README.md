@@ -1,5 +1,5 @@
 XCode Prerequisites
-=============================
+-------------------
 
 Install the following libraries from MacPorts
 * GLFW

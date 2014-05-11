@@ -1,10 +1,8 @@
 This code is not ready
-======================
+----------------------
 
-Windows
--------
+### Windows
 
 http://www.obellianne.fr/alexandre/tutorials/OpenCL/tuto_opencl_codeblocks.php
 
-Linux
------
+### Linux
