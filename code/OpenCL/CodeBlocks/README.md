@@ -1,8 +1,11 @@
-This code is not ready
-----------------------
+Notes
+-----
 
 ### Windows
 
-http://www.obellianne.fr/alexandre/tutorials/OpenCL/tuto_opencl_codeblocks.php
+Should run out-of-the-box.
 
 ### Linux
+
+Haven't tried. If you have OpenCL drivers in your system, then should run out-of-the-box.<br>
+Please try and contribute if it does not.

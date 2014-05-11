@@ -1,0 +1,47 @@
+# depslib dependency file v1.0
+1399840386 source:c:\users\eugenia\documents\github\introduction-to-gpu-computing\code\opencl\codeblocks\src\opencl.cpp
+	<fcntl.h>
+	<stdio.h>
+	<stdlib.h>
+	<string.h>
+	<math.h>
+	<time.h>
+	<unistd.h>
+	<sys/types.h>
+	<sys/stat.h>
+	<CL/cl.h>
+
+1385470710 c:\program files (x86)\intel\opencl sdk\3.0\include\cl\cl.h
+	<OpenCL/cl_platform.h>
+	<CL/cl_platform.h>
+
+1385470710 c:\program files (x86)\intel\opencl sdk\3.0\include\cl\cl_platform.h
+	<AvailabilityMacros.h>
+	<stdint.h>
+	<stddef.h>
+	<altivec.h>
+	<intrin.h>
+	<xmmintrin.h>
+	<intrin.h>
+	<emmintrin.h>
+	<mmintrin.h>
+	<intrin.h>
+	<immintrin.h>
+
+1385470710 c:\users\eugenia\documents\github\introduction-to-gpu-computing\code\opencl\codeblocks\include\cl\cl.h
+	<OpenCL/cl_platform.h>
+	<CL/cl_platform.h>
+
+1385470710 c:\users\eugenia\documents\github\introduction-to-gpu-computing\code\opencl\codeblocks\include\cl\cl_platform.h
+	<AvailabilityMacros.h>
+	<stdint.h>
+	<stddef.h>
+	<altivec.h>
+	<intrin.h>
+	<xmmintrin.h>
+	<intrin.h>
+	<emmintrin.h>
+	<mmintrin.h>
+	<intrin.h>
+	<immintrin.h>
+
