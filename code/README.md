@@ -5,6 +5,6 @@ Here you can find XCode and CodeBlocks projects to try out the examples mentione
 CodeBlocks projects are not completely ready yet.
 
 To read in logical order proceed as follows:
-* Shader
+* Cube
 * FBO
 * OpenCL & CUDA
