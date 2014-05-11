@@ -2,12 +2,12 @@
 <CodeBlocks_project_file>
 	<FileVersion major="1" minor="6" />
 	<Project>
-		<Option title="Cube" />
+		<Option title="FBO" />
 		<Option pch_mode="2" />
 		<Option compiler="gcc" />
 		<Build>
 			<Target title="Release">
-				<Option output="bin/Cube" prefix_auto="1" extension_auto="1" />
+				<Option output="bin/FBO" prefix_auto="1" extension_auto="1" />
 				<Option working_dir="bin" />
 				<Option object_output="obj" />
 				<Option type="1" />
@@ -34,9 +34,9 @@
 		<Unit filename="src/glutil/MatrixStack.cpp" />
 		<Unit filename="src/shader_util.cpp" />
 		<Unit filename="src/shader_util.h" />
-		<Unit filename="src/cube.cpp" />
-		<Unit filename="src/cube.frag.glsl" />
-		<Unit filename="src/cube.vert.glsl" />
+		<Unit filename="src/fbo.cpp" />
+		<Unit filename="src/fbo.frag.glsl" />
+		<Unit filename="src/fbo.vert.glsl" />
 		<Extensions>
 			<code_completion />
 			<envvars />
