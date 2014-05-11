@@ -56,7 +56,7 @@ int main(int argc, char** argv)
     
     clock_t start = clock();
     
-	// Get the platform ID
+    // Get the platform ID
     cl_platform_id platform;
     clGetPlatformIDs(1, &platform, NULL);
 	
