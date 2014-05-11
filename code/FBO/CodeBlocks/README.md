@@ -1,5 +1,5 @@
-CodeBlocks Installation Notes
-=============================
+This code is not ready yet
+==========================
 
 Windows
 -------

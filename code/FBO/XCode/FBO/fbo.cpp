@@ -24,7 +24,6 @@ using namespace std;
 int texSize = 256;
 int loopCount = 1000;
 int n, m;
-int lastw, lasth;
 
 // A structure to collect FBO info
 typedef struct FBOstruct {
@@ -58,7 +57,7 @@ struct FBOstruct *initFloatFBO(int width, int height, float *data) {
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
     
-    // create objects
+    // create framebuffer object and render buffer
     glGenFramebuffers(1, &fbo->fb);      // frame buffer id
     glGenRenderbuffers(1, &fbo->rb);     // render buffer id
     glBindFramebuffer(GL_FRAMEBUFFER, fbo->fb);
@@ -71,9 +70,9 @@ struct FBOstruct *initFloatFBO(int width, int height, float *data) {
 
 // Choose input data (textures) and output data (FBO)
 void useFBO(struct FBOstruct *in, struct FBOstruct *out) {
-	glViewport(0, 0, out->width, out->height);
-	glBindFramebuffer(GL_FRAMEBUFFER, out->fb);
-	glBindTexture(GL_TEXTURE_2D, in->texid);
+    glViewport(0, 0, out->width, out->height);
+    glBindFramebuffer(GL_FRAMEBUFFER, out->fb);
+    glBindTexture(GL_TEXTURE_2D, in->texid);
 }
 
 
@@ -83,17 +82,17 @@ void runComputations() {
     // Erase in case we need it
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
     
-	// Viewport-Sized Quad = Data Stream Generator.
-	glBegin(GL_QUADS);
-    glTexCoord2f(0, 0);
-    glVertex2i(0, 0);
-    glTexCoord2f(0, 1);
-    glVertex2i(0, m);
-    glTexCoord2f(1, 1);
-    glVertex2i(n ,m);
-    glTexCoord2f(1, 0);
-    glVertex2i(n, 0);
-	glEnd();
+    // Viewport-Sized Quad = Data Stream Generator.
+    glBegin(GL_QUADS);
+        glTexCoord2f(0, 0);
+        glVertex2i(0, 0);
+        glTexCoord2f(0, 1);
+        glVertex2i(0, m);
+        glTexCoord2f(1, 1);
+        glVertex2i(n ,m);
+        glTexCoord2f(1, 0);
+        glVertex2i(n, 0);
+    glEnd();
 }
 
 
@@ -134,31 +133,30 @@ int main(int argc, char **argv) {
     }
     
     // create an FBO for each texture
-	fbo1 = initFloatFBO(m, n, data);
-	fbo2 = initFloatFBO(m, n, NULL);
+    fbo1 = initFloatFBO(m, n, data);
+    fbo2 = initFloatFBO(m, n, NULL);
     
     // read and compile shader programs
-	shader.use();
+    shader.use();
     
     // Set orthographic projection
-	gluOrtho2D(0.0, (GLfloat) n, 0.0, (GLfloat) m);
+    gluOrtho2D(0.0, (GLfloat) n, 0.0, (GLfloat) m);
     
     // draw
-	int startTime = glutGet(GLUT_ELAPSED_TIME);
-	for (int loop = 0; loop < loopCount; loop++)
-	{
-		useFBO(fbo1, fbo2);
-		runComputations();
-		glFlush();
-	}
-	int endTime = glutGet(GLUT_ELAPSED_TIME);
+    int startTime = glutGet(GLUT_ELAPSED_TIME);
+    for (int loop = 0; loop < loopCount; loop++) {
+        useFBO(fbo1, fbo2);
+        runComputations();
+        glFlush();
+    }
+    int endTime = glutGet(GLUT_ELAPSED_TIME);
     
     // and read back
     glReadBuffer(GL_COLOR_ATTACHMENT0);
     glReadPixels(0, 0, texSize, texSize, GL_RGBA, GL_FLOAT, result);
     
     // print out results
-	long loopSize = 16;
+    long loopSize = 16;
     printf("Data before computing:\n");
     for (long i = 0; i < loopSize; i++) {
         printf("%f\n",data[i]);
@@ -170,12 +168,12 @@ int main(int argc, char **argv) {
     printf("Total ms (GPU): %d\n", endTime - startTime);
     
     // Same thing on the CPU should take longer.
-	startTime = glutGet(GLUT_ELAPSED_TIME);
-	for (int loop = 0; loop < loopCount; loop++) {
+    startTime = glutGet(GLUT_ELAPSED_TIME);
+    for (int loop = 0; loop < loopCount; loop++) {
         for (long i=0; i < texSize * texSize * 4; i++) {
             result[i] = sqrt(data[i]);
         }
     }
-	endTime = glutGet(GLUT_ELAPSED_TIME);
-	printf("Total ms (CPU): %d\n", endTime - startTime);
+    endTime = glutGet(GLUT_ELAPSED_TIME);
+    printf("Total ms (CPU): %d\n", endTime - startTime);
 }
