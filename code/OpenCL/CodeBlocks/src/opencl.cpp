@@ -16,7 +16,7 @@ const char *KernelSource = "\n" \
 "__kernel void square(                                                  \n" \
 "   __global float* input,                                              \n" \
 "   __global float* output,                                             \n" \
-"   const unsigned long data_size)                                      \n" \
+"   const unsigned int data_size)                                      \n" \
 "{                                                                      \n" \
 "   int i = get_global_id(0);                                           \n" \
 "   if(i < data_size)                                                   \n" \
@@ -24,13 +24,17 @@ const char *KernelSource = "\n" \
 "}                                                                      \n" \
 "\n";
 
-#define DATA_SIZE 100000000
+//Don't put too large value here. 10000000 is ok?
+#define DATA_SIZE 10000000
+
+//If 1, we ouput more information
+#define DEBUG 0
 
 int main(int argc, char** argv)
 {
     int err;                            // error code returned from api calls
 
-    unsigned long data_size = DATA_SIZE;
+    unsigned int data_size = DATA_SIZE;
 
     static float data[DATA_SIZE];              // original data set given to device
     static float gpu_results[DATA_SIZE];           // results returned from device
@@ -81,6 +85,9 @@ int main(int argc, char** argv)
 
     // Build the program executable
     err = clBuildProgram(program, 0, NULL, NULL, NULL, NULL);
+    if (err) {
+        printf("Building the program resulted in: %i \n", err);
+    }
 
     // Create the compute kernel in the program we wish to run
     kernel = clCreateKernel(program, "square", &err);
@@ -91,26 +98,50 @@ int main(int argc, char** argv)
 
     // Write our data set into the input array in device memory
     err = clEnqueueWriteBuffer(commands, input, CL_TRUE, 0, sizeof(float) * data_size, data, 0, NULL, NULL);
+    if (err) {
+        printf("Write buffer enqueue resulted in: %i \n", err);
+    }
 
     // Set the arguments to our compute kernel
     err = 0;
-    err  = clSetKernelArg(kernel, 0, sizeof(cl_mem), &input);
+    err = clSetKernelArg(kernel, 0, sizeof(cl_mem), &input);
+    if (err) {
+        printf("Assigning 0th parameter resulted in: %i \n", err);
+    }
+
     err |= clSetKernelArg(kernel, 1, sizeof(cl_mem), &output);
-    err |= clSetKernelArg(kernel, 2, sizeof(unsigned int), &data_size);
+    if (err) {
+        printf("Assigning 1th parameter resulted in: %i \n", err);
+    }
+
+    err |= clSetKernelArg(kernel, 2, sizeof(cl_uint), &data_size);
+    if (err) {
+        printf("Assigning 2nd parameter resulted in: %i \n", err);
+    }
 
     // Get the maximum work group size for executing the kernel on the device
     err = clGetKernelWorkGroupInfo(kernel, device_id, CL_KERNEL_WORK_GROUP_SIZE, sizeof(local), &local, NULL);
+    if (err) {
+        printf("Getting work group info resulted in: %i \n", err);
+    }
 
     // Execute the kernel over the entire range of our 1d input data set
     // using the maximum number of work group items for this device
-    global = data_size;
+    // Global work group size must be a multiple of the local work group size
+    global = ceil(data_size / (float)local) * local;
     err = clEnqueueNDRangeKernel(commands, kernel, 1, NULL, &global, &local, 0, NULL, NULL);
+    if (err) {
+        printf("Enqueuing kernel resulted in: %i \n", err);
+    }
 
     // Wait for the command commands to get serviced before reading back results
     clFinish(commands);
 
     // Read back the results from the device to verify the output
     err = clEnqueueReadBuffer( commands, output, CL_TRUE, 0, sizeof(float) * data_size, gpu_results, 0, NULL, NULL );
+    if (err) {
+        printf("Reading buffer resulted in: %i \n", err);
+    }
 
     clock_t end = clock();
     float gpu_sec = (float)(end - start) / CLOCKS_PER_SEC;
@@ -127,6 +158,31 @@ int main(int argc, char** argv)
     // Print a brief summary detailing the results
     printf("CPU time %f\n", cpu_sec);
     printf("GPU time %f\n", gpu_sec);
+
+    printf("Local WGS: %i \n", local);
+    printf("Global WGS: %i \n", global);
+
+    // Find out if the results were correct
+    clFinish(commands);
+    #if DEBUG
+        bool correct = true;
+        bool currentCorrect = true;
+        for (unsigned int i = 0; i < data_size; i++) {
+            currentCorrect = (float)gpu_results[i] == (float)cpu_results[i];
+            correct &= currentCorrect;
+            if (!currentCorrect) {
+                printf("Not same %i: f(%f) = %lf vs %lf\n", i, data[i], gpu_results[i], cpu_results[i]);
+            }
+        }
+    #else
+        unsigned int incorrectCount = 0;
+        for (unsigned int i = 0; i < data_size; i++) {
+            if (!(gpu_results[i] == cpu_results[i])) {
+                incorrectCount++;
+            }
+        }
+        printf("Incorrect count: %i / %i \n", incorrectCount, data_size);
+    #endif // DEBUG
 
     // Shutdown and cleanup
     clReleaseMemObject(input);
